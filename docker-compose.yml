@@ -28,9 +28,9 @@ services:
       DATABASE_URL: 'postgresql://postgres:12345678@skill-sync-db:5432/SkillSync' # Prisma uses this
     networks:
       - skill_sync_network
-    volumes:
-      - .:/usr/src/app
-      - /usr/src/app/node_modules # Isolate host node_modules
+    # volumes:
+    #   - .:/usr/src/app
+    #   - /usr/src/app/node_modules # Isolate host node_modules
 
   prisma-studio:
     image: timothyjmiller/prisma-studio:latest
