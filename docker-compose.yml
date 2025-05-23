@@ -1,0 +1,51 @@
+services:
+  skill-sync-db:
+    image: postgres:16
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 12345678
+      POSTGRES_DB: SkillSync
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - skill_sync_network
+    healthcheck: # Add healthcheck for the database
+      test: ['CMD-SHELL', 'pg_isready -U postgres -d SkillSync']
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  skill-sync-app:
+    build: .
+    ports:
+      - '3001:3001'
+    depends_on:
+      skill-sync-db:
+        condition: service_healthy # Wait for the database to be healthy
+    environment:
+      DATABASE_URL: 'postgresql://postgres:12345678@skill-sync-db:5432/SkillSync' # Prisma uses this
+    networks:
+      - skill_sync_network
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules # Isolate host node_modules
+
+  prisma-studio:
+    image: timothyjmiller/prisma-studio:latest
+    ports:
+      - '5555:5555'
+    environment:
+      DATABASE_URL: 'postgresql://postgres:12345678@skill-sync-db:5432/SkillSync'
+    depends_on:
+      skill-sync-db:
+        condition: service_healthy
+    networks:
+      - skill_sync_network
+
+networks:
+  skill_sync_network:
+
+volumes:
+  postgres_data:
