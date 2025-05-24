@@ -26,6 +26,7 @@ services:
         condition: service_healthy # Wait for the database to be healthy
     environment:
       DATABASE_URL: 'postgresql://postgres:12345678@skill-sync-db:5432/SkillSync' # Prisma uses this
+    command: sh -c "npx prisma migrate deploy && npm run start:dev"
     networks:
       - skill_sync_network
     develop:
