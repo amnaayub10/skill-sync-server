@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
   output   = "../generated/prisma"
@@ -15,13 +9,70 @@ datasource db {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  name      String?
-  email     String   @unique
-  password  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  bio       String?
+  id             Int                @id @default(autoincrement())
+  name           String?
+  email          String             @unique
+  password       String
+  createdAt      DateTime           @default(now())
+  updatedAt      DateTime           @updatedAt
+  bio            String?
+  userSkills     UserSkill[] // A user can have many entries in the UserSkill table
+  availabilities UserAvailability[] // A user can have multiple availability entries
 
   @@map("users")
+}
+
+model Skill {
+  id          Int         @id @default(autoincrement())
+  name        String      @unique
+  description String?
+  userSkills  UserSkill[] // A skill can be linked to many UserSkill entries
+
+  @@map("skills")
+}
+
+// Links a User to a Skill and specifies the skill's type (offered/wanted) and proficiency.
+model UserSkill {
+  id          Int               @id @default(autoincrement())
+  userId      Int // Foreign key to  User
+  skillId     Int //Foreign key to Skill 
+  type        SkillType // Enum: 'OFFERED' or 'WANTED_TO_LEARN'
+  proficiency SkillProficiency? // Optional Enum: e.g., 'BEGINNER', 'INTERMEDIATE', 'EXPERT'
+  description String?           @db.Text // Optional: User-specific note for this skill (e.g., "I teach React fundamentals" or "Looking to learn advanced SQL queries")
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+
+  user  User  @relation(fields: [userId], references: [id])
+  skill Skill @relation(fields: [skillId], references: [id])
+
+  // Ensures a user cannot offer the same skill multiple times, or want the same skill multiple times.
+  // If a user offers React and wants React, these would be two separate entries because of the `type`.
+  @@unique([userId, skillId, type])
+  @@map("user_skills")
+}
+
+model UserAvailability {
+  id        Int      @id @default(autoincrement())
+  userId    Int //Foreign key to User
+  dayOfWeek String? // E.g., "MONDAY", "TUESDAY", "WEEKENDS". Can be comma-separated or multiple entries.
+  timeOfDay String? // E.g., "MORNING", "AFTERNOON", "EVENING", "FLEXIBLE"
+  notes     String?  @db.Text // General description (e.g., "Usually free after 6 PM EST on weekdays.")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  User User @relation(fields: [userId], references: [id])
+
+  @@map("user_availabilities")
+}
+
+enum SkillType {
+  OFFERED
+  WANTED_TO_LEARN
+}
+
+enum SkillProficiency {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
+  EXPERT
 }
