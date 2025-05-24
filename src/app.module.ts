@@ -11,7 +11,7 @@ import { UsersService } from './users/users.service';
 import { UsersModule } from './users/users.module';
 
 @Module({
-  imports: [ConfigModule.forRoot({ isGlobal: true }), PrismaModule, AuthModule, UsersModule],
+  imports: [ConfigModule.forRoot({ isGlobal: true, envFilePath: '.env' }), PrismaModule, AuthModule, UsersModule],
   controllers: [AppController, UsersController],
   providers: [AppService, UsersService],
 })
