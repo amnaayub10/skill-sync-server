@@ -16,8 +16,8 @@ model User {
   createdAt      DateTime           @default(now())
   updatedAt      DateTime           @updatedAt
   bio            String?
-  userSkills     UserSkill[] // A user can have many entries in the UserSkill table
-  availabilities UserAvailability[] // A user can have multiple availability entries
+  userSkills     UserSkill[]
+  availabilities UserAvailability[]
 
   @@map("users")
 }
@@ -26,7 +26,7 @@ model Skill {
   id          Int         @id @default(autoincrement())
   name        String      @unique
   description String?
-  userSkills  UserSkill[] // A skill can be linked to many UserSkill entries
+  userSkills  UserSkill[]
 
   @@map("skills")
 }
@@ -34,11 +34,11 @@ model Skill {
 // Links a User to a Skill and specifies the skill's type (offered/wanted) and proficiency.
 model UserSkill {
   id          Int               @id @default(autoincrement())
-  userId      Int // Foreign key to  User
-  skillId     Int //Foreign key to Skill 
-  type        SkillType // Enum: 'OFFERED' or 'WANTED_TO_LEARN'
-  proficiency SkillProficiency? // Optional Enum: e.g., 'BEGINNER', 'INTERMEDIATE', 'EXPERT'
-  description String?           @db.Text // Optional: User-specific note for this skill (e.g., "I teach React fundamentals" or "Looking to learn advanced SQL queries")
+  userId      Int
+  skillId     Int
+  type        SkillType
+  proficiency SkillProficiency?
+  description String?           @db.Text
   createdAt   DateTime          @default(now())
   updatedAt   DateTime          @updatedAt
 
@@ -53,10 +53,10 @@ model UserSkill {
 
 model UserAvailability {
   id        Int      @id @default(autoincrement())
-  userId    Int //Foreign key to User
-  dayOfWeek String? // E.g., "MONDAY", "TUESDAY", "WEEKENDS". Can be comma-separated or multiple entries.
-  timeOfDay String? // E.g., "MORNING", "AFTERNOON", "EVENING", "FLEXIBLE"
-  notes     String?  @db.Text // General description (e.g., "Usually free after 6 PM EST on weekdays.")
+  userId    Int
+  dayOfWeek String?
+  timeOfDay String?
+  notes     String?  @db.Text
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
