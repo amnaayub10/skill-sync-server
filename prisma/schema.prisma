@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
   output   = "../generated/prisma"
@@ -15,11 +9,70 @@ datasource db {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  name      String?
-  email     String   @unique
-  password  String
-  updatedAt DateTime @default(now())
+  id             Int                @id @default(autoincrement())
+  name           String?
+  email          String             @unique
+  password       String
+  createdAt      DateTime           @default(now())
+  updatedAt      DateTime           @updatedAt
+  bio            String?
+  userSkills     UserSkill[]
+  availabilities UserAvailability[]
 
   @@map("users")
+}
+
+model Skill {
+  id          Int         @id @default(autoincrement())
+  name        String      @unique
+  description String?
+  userSkills  UserSkill[]
+
+  @@map("skills")
+}
+
+// Links a User to a Skill and specifies the skill's type (offered/wanted) and proficiency.
+model UserSkill {
+  id          Int               @id @default(autoincrement())
+  userId      Int
+  skillId     Int
+  type        SkillType
+  proficiency SkillProficiency?
+  description String?           @db.Text
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+
+  user  User  @relation(fields: [userId], references: [id])
+  skill Skill @relation(fields: [skillId], references: [id])
+
+  // Ensures a user cannot offer the same skill multiple times, or want the same skill multiple times.
+  // If a user offers React and wants React, these would be two separate entries because of the `type`.
+  @@unique([userId, skillId, type])
+  @@map("user_skills")
+}
+
+model UserAvailability {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  dayOfWeek String?
+  timeOfDay String?
+  notes     String?  @db.Text
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  User User @relation(fields: [userId], references: [id])
+
+  @@map("user_availabilities")
+}
+
+enum SkillType {
+  OFFERED
+  WANTED_TO_LEARN
+}
+
+enum SkillProficiency {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
+  EXPERT
 }

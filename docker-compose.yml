@@ -4,15 +4,15 @@ services:
     ports:
       - '5432:5432'
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 12345678
-      POSTGRES_DB: SkillSync
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_DATABASE}
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
       - skill_sync_network
     healthcheck: # Add healthcheck for the database
-      test: ['CMD-SHELL', 'pg_isready -U postgres -d SkillSync']
+      test: ['CMD-SHELL', 'pg_isready -U ${DB_USERNAME} -d ${DB_DATABASE}']
       interval: 5s
       timeout: 5s
       retries: 5
@@ -25,7 +25,8 @@ services:
       skill-sync-db:
         condition: service_healthy # Wait for the database to be healthy
     environment:
-      DATABASE_URL: 'postgresql://postgres:12345678@skill-sync-db:5432/SkillSync' # Prisma uses this
+      DATABASE_URL: ${DATABASE_URL} # Prisma uses this
+    command: sh -c "pnpm dlx prisma migrate deploy && pnpm start:dev"
     networks:
       - skill_sync_network
     develop:
@@ -46,7 +47,7 @@ services:
     ports:
       - '5555:5555'
     environment:
-      DATABASE_URL: 'postgresql://postgres:12345678@skill-sync-db:5432/SkillSync'
+      DATABASE_URL: ${DATABASE_URL}
     depends_on:
       skill-sync-db:
         condition: service_healthy
