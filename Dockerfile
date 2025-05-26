@@ -5,14 +5,14 @@ RUN corepack enable && corepack prepare pnpm@latest --activate
 
 WORKDIR /usr/src/app
 
-# Copy PNPM files first to leverage Docker caching
-COPY pnpm-lock.yaml ./
-RUN pnpm fetch
+# Copy package files first to leverage Docker caching
+COPY package.json pnpm-lock.yaml ./
 
+# Install dependencies directly (this is more reliable than fetch + offline install)
+RUN pnpm install --frozen-lockfile
+
+# Copy the rest of the application code
 COPY . .
-
-# Install dependencies (including Prisma)
-RUN pnpm install --offline
 
 # Generate Prisma Client (this is safe to do during build as it doesn't need a running DB)
 RUN pnpm prisma generate --schema=./prisma/schema.prisma
