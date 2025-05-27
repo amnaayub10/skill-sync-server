@@ -9,10 +9,12 @@ import { ConfigModule } from '@nestjs/config';
 import { UsersController } from './users/users.controller';
 import { UsersService } from './users/users.service';
 import { UsersModule } from './users/users.module';
+import { SkillsController } from './skills/skills.controller';
+import { SkillsModule } from './skills/skills.module';
 
 @Module({
-  imports: [ConfigModule.forRoot({ isGlobal: true, envFilePath: '.env' }), PrismaModule, AuthModule, UsersModule],
-  controllers: [AppController, UsersController],
+  imports: [ConfigModule.forRoot({ isGlobal: true, envFilePath: '.env' }), PrismaModule, AuthModule, UsersModule, SkillsModule],
+  controllers: [AppController, UsersController, SkillsController],
   providers: [AppService, UsersService],
 })
 export class AppModule { }
