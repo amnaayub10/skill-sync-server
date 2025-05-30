@@ -23,4 +23,4 @@ RUN pnpm build
 EXPOSE 3001
 
 # Modify the CMD to first run migrations and then start the app
-CMD ["/bin/sh", "-c", "pnpm prisma migrate deploy --schema=./prisma/schema.prisma && pnpm start:dev"]
+CMD ["/bin/sh", "-c", "pnpm dlx prisma migrate dev --schema=./prisma/schema.prisma && pnpm dlx prisma migrate deploy --schema=./prisma/schema.prisma && pnpm start:dev"]

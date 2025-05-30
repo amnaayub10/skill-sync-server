@@ -13,7 +13,13 @@ import { SkillsController } from './skills/skills.controller';
 import { SkillsModule } from './skills/skills.module';
 
 @Module({
-  imports: [ConfigModule.forRoot({ isGlobal: true, envFilePath: '.env' }), PrismaModule, AuthModule, UsersModule, SkillsModule],
+  imports: [
+    ConfigModule.forRoot({ isGlobal: true, envFilePath: '.env' }),
+    PrismaModule,
+    AuthModule,
+    UsersModule,
+    SkillsModule,
+  ],
   controllers: [AppController, UsersController, SkillsController],
   providers: [AppService, UsersService],
 })

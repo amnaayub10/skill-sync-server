@@ -7,7 +7,7 @@ export class SkillsService {
 
   async getSkills() {
     try {
-      const skills = await this.prisma.skills;
+      const skills = await this.prisma;
     } catch (error) {
       throw new BadGatewayException(error);
     }
