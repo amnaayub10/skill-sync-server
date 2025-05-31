@@ -35,3 +35,21 @@ export class AddUserSkillDto {
   @IsString()
   description?: string;
 }
+
+export class UpdateUserSkillDto {
+  @IsOptional()
+  @IsInt()
+  skillId: number;
+
+  @IsOptional()
+  @IsEnum(SkillType)
+  type: SkillType;
+
+  @IsOptional()
+  @IsEnum(SkillProficiency)
+  proficiency: SkillProficiency;
+
+  @IsOptional()
+  @IsString()
+  description?: string;
+}

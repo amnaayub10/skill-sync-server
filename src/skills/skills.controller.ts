@@ -1,6 +1,22 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 import { SkillsService } from './skills.service';
-import { AddSkillDto, AddUserSkillDto } from './dto/addSkill.dto';
+import {
+  AddSkillDto,
+  AddUserSkillDto,
+  UpdateUserSkillDto,
+} from './dto/addSkill.dto';
+import { JwtGuard } from 'src/auth/guard';
+import { GetUser } from 'src/auth/decorator';
+import { AuthenticatedUser } from 'src/auth/interfaces';
 
 @Controller('skills')
 export class SkillsController {
@@ -16,8 +32,30 @@ export class SkillsController {
     return this.skillsService.addSkill(dto);
   }
 
-  @Post()
-  addUserSkills(@Body() dto: AddUserSkillDto) {
-    return this.skillsService.addUserSkill(dto);
+  @UseGuards(JwtGuard)
+  @Post('add-user-skill')
+  addUserSkills(
+    @GetUser('id') userId: AuthenticatedUser['id'],
+    @Body() dto: AddUserSkillDto,
+  ) {
+    return this.skillsService.addUserSkill(dto, userId);
+  }
+
+  @UseGuards(JwtGuard)
+  @Patch('update-user-skill')
+  updateUserSkills(
+    @GetUser('id') userId: AuthenticatedUser['id'],
+    @Body() dto: UpdateUserSkillDto,
+  ) {
+    return this.skillsService.updateUserSkill(dto, userId);
+  }
+
+  @UseGuards(JwtGuard)
+  @Delete('delete-user-skill')
+  deleteUserSkills(
+    @GetUser('id') userId: AuthenticatedUser['id'],
+    @Param() userSkillId: number,
+  ) {
+    return this.skillsService.deleteUserSkill(userSkillId, userId);
   }
 }
