@@ -20,7 +20,7 @@ import { AuthenticatedUser } from 'src/auth/interfaces';
 
 @Controller('skills')
 export class SkillsController {
-  constructor(private skillsService: SkillsService) {}
+  constructor(private skillsService: SkillsService) { }
 
   @Get()
   getSkills() {
@@ -35,7 +35,7 @@ export class SkillsController {
 
   @UseGuards(JwtGuard)
   @Post('add-user-skill')
-  addUserSkills(
+  addUserSkill(
     @GetUser('id') userId: AuthenticatedUser['id'],
     @Body() dto: AddUserSkillDto,
   ) {
@@ -44,7 +44,7 @@ export class SkillsController {
 
   @UseGuards(JwtGuard)
   @Patch('update-user-skill')
-  updateUserSkills(
+  updateUserSkill(
     @GetUser('id') userId: AuthenticatedUser['id'],
     @Body() dto: UpdateUserSkillDto,
   ) {
@@ -52,10 +52,10 @@ export class SkillsController {
   }
 
   @UseGuards(JwtGuard)
-  @Delete('delete-user-skill')
-  deleteUserSkills(
+  @Delete('delete-user-skill/:userSkillId')
+  deleteUserSkill(
     @GetUser('id') userId: AuthenticatedUser['id'],
-    @Param() userSkillId: number,
+    @Param('userSkillId') userSkillId: string,
   ) {
     return this.skillsService.deleteUserSkill(userSkillId, userId);
   }
