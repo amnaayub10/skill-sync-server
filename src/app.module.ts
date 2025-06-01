@@ -11,6 +11,7 @@ import { UsersService } from './users/users.service';
 import { UsersModule } from './users/users.module';
 import { SkillsController } from './skills/skills.controller';
 import { SkillsModule } from './skills/skills.module';
+import { SkillsService } from './skills/skills.service';
 
 @Module({
   imports: [
@@ -21,6 +22,6 @@ import { SkillsModule } from './skills/skills.module';
     SkillsModule,
   ],
   controllers: [AppController, UsersController, SkillsController],
-  providers: [AppService, UsersService],
+  providers: [AppService, UsersService, SkillsService],
 })
-export class AppModule { }
+export class AppModule {}

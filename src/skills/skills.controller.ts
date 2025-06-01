@@ -20,13 +20,14 @@ import { AuthenticatedUser } from 'src/auth/interfaces';
 
 @Controller('skills')
 export class SkillsController {
-  constructor(private skillsService: SkillsService) { }
+  constructor(private skillsService: SkillsService) {}
 
   @Get()
   getSkills() {
     return this.skillsService.getSkills();
   }
 
+  @UseGuards(JwtGuard)
   @Post()
   addSkills(@Body() dto: AddSkillDto) {
     return this.skillsService.addSkill(dto);
