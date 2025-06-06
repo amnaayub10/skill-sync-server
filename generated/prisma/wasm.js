@@ -130,6 +130,33 @@ exports.Prisma.UserScalarFieldEnum = {
   bio: 'bio'
 };
 
+exports.Prisma.SkillScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description'
+};
+
+exports.Prisma.UserSkillScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  skillId: 'skillId',
+  type: 'type',
+  proficiency: 'proficiency',
+  description: 'description',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.UserAvailabilityScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  dayOfWeek: 'dayOfWeek',
+  timeOfDay: 'timeOfDay',
+  notes: 'notes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -144,10 +171,23 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
+exports.SkillType = exports.$Enums.SkillType = {
+  OFFERED: 'OFFERED',
+  WANTED_TO_LEARN: 'WANTED_TO_LEARN'
+};
 
+exports.SkillProficiency = exports.$Enums.SkillProficiency = {
+  BEGINNER: 'BEGINNER',
+  INTERMEDIATE: 'INTERMEDIATE',
+  ADVANCED: 'ADVANCED',
+  EXPERT: 'EXPERT'
+};
 
 exports.Prisma.ModelName = {
-  User: 'User'
+  User: 'User',
+  Skill: 'Skill',
+  UserSkill: 'UserSkill',
+  UserAvailability: 'UserAvailability'
 };
 
 /**

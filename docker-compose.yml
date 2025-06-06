@@ -11,7 +11,7 @@ services:
       - postgres_data:/var/lib/postgresql/data
     networks:
       - skill_sync_network
-    healthcheck: # Add healthcheck for the database
+    healthcheck:
       test: ['CMD-SHELL', 'pg_isready -U ${DB_USERNAME} -d ${DB_DATABASE}']
       interval: 5s
       timeout: 5s
@@ -23,10 +23,12 @@ services:
       - '3001:3001'
     depends_on:
       skill-sync-db:
-        condition: service_healthy # Wait for the database to be healthy
+        condition: service_healthy
     environment:
-      DATABASE_URL: ${DATABASE_URL} # Prisma uses this
-    command: sh -c "pnpm dlx prisma migrate deploy && pnpm start:dev"
+      DATABASE_URL: ${DATABASE_URL}
+    extra_hosts:
+      - "localhost:host-gateway"
+    # Remove the command from here - let Dockerfile handle it
     networks:
       - skill_sync_network
     develop:
@@ -34,25 +36,15 @@ services:
         - action: sync
           path: ./src
           target: /usr/src/app/src
+        - action: sync
+          path: ./prisma
+          target: /usr/src/app/prisma
         - action: rebuild
           path: ./package.json
         - action: rebuild
           path: ./pnpm-lock.yaml
-    # volumes:
-    #   - .:/usr/src/app
-    #   - /usr/src/app/node_modules # Isolate host node_modules
 
-  prisma-studio:
-    image: timothyjmiller/prisma-studio:latest
-    ports:
-      - '5555:5555'
-    environment:
-      DATABASE_URL: ${DATABASE_URL}
-    depends_on:
-      skill-sync-db:
-        condition: service_healthy
-    networks:
-      - skill_sync_network
+  # Remove prisma-studio from docker-compose - run it locally instead
 
 networks:
   skill_sync_network:

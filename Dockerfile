@@ -8,13 +8,13 @@ WORKDIR /usr/src/app
 # Copy package files first to leverage Docker caching
 COPY package.json pnpm-lock.yaml ./
 
-# Install dependencies directly (this is more reliable than fetch + offline install)
+# Install dependencies
 RUN pnpm install --frozen-lockfile
 
 # Copy the rest of the application code
 COPY . .
 
-# Generate Prisma Client (this is safe to do during build as it doesn't need a running DB)
+# Generate Prisma Client (this is safe to do during build)
 RUN pnpm prisma generate --schema=./prisma/schema.prisma
 
 # Build the NestJS app
@@ -22,5 +22,18 @@ RUN pnpm build
 
 EXPOSE 3001
 
-# Modify the CMD to first run migrations and then start the app
-CMD ["/bin/sh", "-c", "pnpm dlx prisma migrate deploy --schema=./prisma/schema.prisma && pnpm start:dev"]
+# Create a startup script
+COPY <<EOF /usr/src/app/start.sh
+#!/bin/sh
+set -e
+
+echo "🔄 Running database migrations..."
+pnpm dlx prisma migrate deploy --schema=./prisma/schema.prisma
+
+echo "🚀 Starting NestJS application..."
+pnpm start:dev
+EOF
+
+RUN chmod +x /usr/src/app/start.sh
+
+CMD ["/usr/src/app/start.sh"]
