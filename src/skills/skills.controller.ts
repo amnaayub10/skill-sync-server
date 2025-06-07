@@ -29,7 +29,7 @@ export class SkillsController {
 
   @UseGuards(JwtGuard)
   @Post()
-  addSkills(@Body() dto: AddSkillDto) {
+  addSkill(@Body() dto: AddSkillDto) {
     return this.skillsService.addSkill(dto);
   }
 
@@ -40,6 +40,14 @@ export class SkillsController {
     @Body() dto: AddUserSkillDto,
   ) {
     return this.skillsService.addUserSkill(dto, userId);
+  }
+
+  @UseGuards(JwtGuard)
+  @Get('user-skills')
+  getUserSkills(
+    @GetUser('id') userId: AuthenticatedUser['id'],
+  ) {
+    return this.skillsService.getUserSkills(userId);
   }
 
   @UseGuards(JwtGuard)

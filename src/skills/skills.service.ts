@@ -86,6 +86,25 @@ export class SkillsService {
     }
   }
 
+  async getUserSkills(userId: number) {
+    try {
+      const userSkills = await this.prisma.userSkill.findMany({
+        where: {
+          userId: userId
+        }
+      });
+
+      if (userSkills.length === 0) {
+        throw new NotFoundException(
+          'User skills not found',
+        );
+      }
+      return userSkills;
+    } catch (error) {
+      throw error;
+    }
+  }
+
   async updateUserSkill(dto: UpdateUserSkillDto, userId: number) { }
 
   async deleteUserSkill(userSkillId: string, userId: number) {
