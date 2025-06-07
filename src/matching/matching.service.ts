@@ -26,7 +26,9 @@ export class MatchingService {
 
       const matchedOfferedSkills = await this.prisma.userSkill.findMany({
         where: {
-          skillId: wantedSkills[0].skillId,
+          skillId: {
+            in: wantedSkills.map(item => item.skillId)
+          },
           type: 'OFFERED'
         }
       });
@@ -36,14 +38,14 @@ export class MatchingService {
 
       const matchingUsers = await this.prisma.user.findMany({
         where: {
-          id: matchedOfferedSkills[0].userId
+          id: {
+            in: matchedOfferedSkills.map(userSkill => userSkill.userId)
+          }
         },
-        select: {
-          id: true,
-          name: true,
-          email: true,
-          bio: true
+        omit: {
+          password: true,
         }
+
       });
 
       return matchingUsers;
