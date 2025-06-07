@@ -62,6 +62,18 @@ export class SkillsService {
 
   async addUserSkill(dto: AddUserSkillDto, userId: number) {
     try {
+
+      const skillAlreadyExist = await this.prisma.userSkill.findFirst({
+        where: {
+          userId: userId,
+          skillId: dto.skillId
+        }
+      });
+
+      if (skillAlreadyExist) {
+        throw new BadRequestException(`You already have added this skill as ${skillAlreadyExist.type}`);
+      }
+
       const userSkill = await this.prisma.userSkill.create({
         data: {
           userId,
@@ -82,7 +94,7 @@ export class SkillsService {
       return userSkill;
     } catch (error) {
       console.error('Error:', error);
-      throw new InternalServerErrorException('Server Error happened');
+      throw error;
     }
   }
 
