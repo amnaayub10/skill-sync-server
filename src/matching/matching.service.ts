@@ -5,10 +5,11 @@ import { PrismaService } from 'src/prisma/prisma.service';
 export class MatchingService {
   constructor(private prisma: PrismaService) { }
 
-  async getMatchToLearn(userId: number) {
+  async findStudentsForUser(seekerId: number) {
     try {
       // Find users where their "offered skills" match this user (userId) "wanted skills"
-      // Calculate compatibility score
+      //todo Calculate compatibility score
+      //todo Rank Users w.r.t compatibility score (cs)
       // Display match results with user profiles
 
       //get current user wanted skills
@@ -16,7 +17,7 @@ export class MatchingService {
 
       const wantedSkills = await this.prisma.userSkill.findMany({
         where: {
-          userId: userId,
+          userId: seekerId,
           type: 'WANTED_TO_LEARN'
         }
       });
@@ -29,8 +30,8 @@ export class MatchingService {
           skillId: {
             in: wantedSkills.map(item => item.skillId)
           },
-          type: 'OFFERED'
-        }
+          type: 'OFFERED',
+        },
       });
       if (matchedOfferedSkills.length === 0) {
         throw new NotFoundException('Currently, no users are offering to teach the skills you want to learn.');
@@ -48,16 +49,21 @@ export class MatchingService {
 
       });
 
-      return matchingUsers;
+      return {
+        message: "Students retrieved successfully.",
+        students: matchingUsers
+      };
 
     } catch (error) {
       throw error;
     }
   }
-  async getMatchToTeach(userId: number) {
+
+  async findMentorsForUser(seekerId: number) {
     try {
       // Find users where their "wanted skills" match this user (userId) "offered skills"
-      // Calculate compatibility score
+      //todo Calculate compatibility score
+      //todo Rank Users w.r.t compatibility score
       // Display match results with user profiles
 
       //get current user offered skills
@@ -65,7 +71,7 @@ export class MatchingService {
 
       const offeredSkills = await this.prisma.userSkill.findMany({
         where: {
-          userId: userId,
+          userId: seekerId,
           type: 'OFFERED'
         }
       });
@@ -97,7 +103,11 @@ export class MatchingService {
 
       });
 
-      return matchingUsers;
+      return {
+        message: "Mentors retrieved successfully.",
+        mentors: matchingUsers
+      };
+
 
     } catch (error) {
       throw error;

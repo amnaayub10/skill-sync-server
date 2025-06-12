@@ -10,17 +10,17 @@ export class MatchingController {
 
   constructor(private matchingService: MatchingService) { }
 
-  @Get('to-learn')
-  getMatchToLearn(
-    @GetUser('id') userId: AuthenticatedUser['id']
+  @Get('students')
+  findStudentsForUser(
+    @GetUser('id') seekerId: AuthenticatedUser['id']
   ) {
-    return this.matchingService.getMatchToLearn(userId);
+    return this.matchingService.findStudentsForUser(seekerId);
   }
 
-  @Get('to-teach')
-  getMatchToTeach(
-    @GetUser('id') userId: AuthenticatedUser['id']
+  @Get('mentors')
+  findMentorsForUser(
+    @GetUser('id') seekerId: AuthenticatedUser['id']
   ) {
-    return this.matchingService.getMatchToTeach(userId);
+    return this.matchingService.findMentorsForUser(seekerId);
   }
 }
