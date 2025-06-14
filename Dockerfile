@@ -31,7 +31,7 @@ echo "🔄 Running database migrations..."
 pnpm dlx prisma migrate deploy --schema=./prisma/schema.prisma
 
 echo "🚀 Starting NestJS application..."
-pnpm start:dev
+pnpm start:prod
 EOF
 
 RUN chmod +x /usr/src/app/start.sh
