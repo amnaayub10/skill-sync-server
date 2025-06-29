@@ -287,8 +287,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.8.2
-   * Query Engine version: 2060c79ba17c6bb9f5823312b6f6b7f4a845738e
+   * Prisma Client JS version: 6.10.1
+   * Query Engine version: 9b628578b3b7cae625e8c927178f15a170e74a9c
    */
   export type PrismaVersion = {
     client: string
@@ -1173,13 +1173,13 @@ export namespace Prisma {
    */
 
   export type UserCountOutputType = {
-    userSkills: number
     availabilities: number
+    userSkills: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    userSkills?: boolean | UserCountOutputTypeCountUserSkillsArgs
     availabilities?: boolean | UserCountOutputTypeCountAvailabilitiesArgs
+    userSkills?: boolean | UserCountOutputTypeCountUserSkillsArgs
   }
 
   // Custom InputTypes
@@ -1196,15 +1196,15 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountUserSkillsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: UserSkillWhereInput
+  export type UserCountOutputTypeCountAvailabilitiesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserAvailabilityWhereInput
   }
 
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountAvailabilitiesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: UserAvailabilityWhereInput
+  export type UserCountOutputTypeCountUserSkillsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserSkillWhereInput
   }
 
 
@@ -1457,8 +1457,8 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     bio?: boolean
-    userSkills?: boolean | User$userSkillsArgs<ExtArgs>
     availabilities?: boolean | User$availabilitiesArgs<ExtArgs>
+    userSkills?: boolean | User$userSkillsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1494,8 +1494,8 @@ export namespace Prisma {
 
   export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "password" | "createdAt" | "updatedAt" | "bio", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    userSkills?: boolean | User$userSkillsArgs<ExtArgs>
     availabilities?: boolean | User$availabilitiesArgs<ExtArgs>
+    userSkills?: boolean | User$userSkillsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1504,8 +1504,8 @@ export namespace Prisma {
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
     objects: {
-      userSkills: Prisma.$UserSkillPayload<ExtArgs>[]
       availabilities: Prisma.$UserAvailabilityPayload<ExtArgs>[]
+      userSkills: Prisma.$UserSkillPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -1909,8 +1909,8 @@ export namespace Prisma {
    */
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    userSkills<T extends User$userSkillsArgs<ExtArgs> = {}>(args?: Subset<T, User$userSkillsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserSkillPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     availabilities<T extends User$availabilitiesArgs<ExtArgs> = {}>(args?: Subset<T, User$availabilitiesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserAvailabilityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    userSkills<T extends User$userSkillsArgs<ExtArgs> = {}>(args?: Subset<T, User$userSkillsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserSkillPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2335,30 +2335,6 @@ export namespace Prisma {
   }
 
   /**
-   * User.userSkills
-   */
-  export type User$userSkillsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the UserSkill
-     */
-    select?: UserSkillSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the UserSkill
-     */
-    omit?: UserSkillOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: UserSkillInclude<ExtArgs> | null
-    where?: UserSkillWhereInput
-    orderBy?: UserSkillOrderByWithRelationInput | UserSkillOrderByWithRelationInput[]
-    cursor?: UserSkillWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: UserSkillScalarFieldEnum | UserSkillScalarFieldEnum[]
-  }
-
-  /**
    * User.availabilities
    */
   export type User$availabilitiesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2380,6 +2356,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: UserAvailabilityScalarFieldEnum | UserAvailabilityScalarFieldEnum[]
+  }
+
+  /**
+   * User.userSkills
+   */
+  export type User$userSkillsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserSkill
+     */
+    select?: UserSkillSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserSkill
+     */
+    omit?: UserSkillOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserSkillInclude<ExtArgs> | null
+    where?: UserSkillWhereInput
+    orderBy?: UserSkillOrderByWithRelationInput | UserSkillOrderByWithRelationInput[]
+    cursor?: UserSkillWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserSkillScalarFieldEnum | UserSkillScalarFieldEnum[]
   }
 
   /**
@@ -3709,8 +3709,8 @@ export namespace Prisma {
     description?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
     skill?: boolean | SkillDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["userSkill"]>
 
   export type UserSkillSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -3722,8 +3722,8 @@ export namespace Prisma {
     description?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
     skill?: boolean | SkillDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["userSkill"]>
 
   export type UserSkillSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -3735,8 +3735,8 @@ export namespace Prisma {
     description?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
     skill?: boolean | SkillDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["userSkill"]>
 
   export type UserSkillSelectScalar = {
@@ -3752,23 +3752,23 @@ export namespace Prisma {
 
   export type UserSkillOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "skillId" | "type" | "proficiency" | "description" | "createdAt" | "updatedAt", ExtArgs["result"]["userSkill"]>
   export type UserSkillInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
     skill?: boolean | SkillDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type UserSkillIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
     skill?: boolean | SkillDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type UserSkillIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
     skill?: boolean | SkillDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
 
   export type $UserSkillPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "UserSkill"
     objects: {
-      user: Prisma.$UserPayload<ExtArgs>
       skill: Prisma.$SkillPayload<ExtArgs>
+      user: Prisma.$UserPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -4173,8 +4173,8 @@ export namespace Prisma {
    */
   export interface Prisma__UserSkillClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     skill<T extends SkillDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SkillDefaultArgs<ExtArgs>>): Prisma__SkillClient<$Result.GetResult<Prisma.$SkillPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5938,8 +5938,8 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     bio?: StringNullableFilter<"User"> | string | null
-    userSkills?: UserSkillListRelationFilter
     availabilities?: UserAvailabilityListRelationFilter
+    userSkills?: UserSkillListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -5950,8 +5950,8 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     bio?: SortOrderInput | SortOrder
-    userSkills?: UserSkillOrderByRelationAggregateInput
     availabilities?: UserAvailabilityOrderByRelationAggregateInput
+    userSkills?: UserSkillOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -5965,8 +5965,8 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     bio?: StringNullableFilter<"User"> | string | null
-    userSkills?: UserSkillListRelationFilter
     availabilities?: UserAvailabilityListRelationFilter
+    userSkills?: UserSkillListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -6056,8 +6056,8 @@ export namespace Prisma {
     description?: StringNullableFilter<"UserSkill"> | string | null
     createdAt?: DateTimeFilter<"UserSkill"> | Date | string
     updatedAt?: DateTimeFilter<"UserSkill"> | Date | string
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
     skill?: XOR<SkillScalarRelationFilter, SkillWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
   export type UserSkillOrderByWithRelationInput = {
@@ -6069,8 +6069,8 @@ export namespace Prisma {
     description?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    user?: UserOrderByWithRelationInput
     skill?: SkillOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
   }
 
   export type UserSkillWhereUniqueInput = Prisma.AtLeast<{
@@ -6086,8 +6086,8 @@ export namespace Prisma {
     description?: StringNullableFilter<"UserSkill"> | string | null
     createdAt?: DateTimeFilter<"UserSkill"> | Date | string
     updatedAt?: DateTimeFilter<"UserSkill"> | Date | string
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
     skill?: XOR<SkillScalarRelationFilter, SkillWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id" | "userId_skillId_type">
 
   export type UserSkillOrderByWithAggregationInput = {
@@ -6194,8 +6194,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     bio?: string | null
-    userSkills?: UserSkillCreateNestedManyWithoutUserInput
     availabilities?: UserAvailabilityCreateNestedManyWithoutUserInput
+    userSkills?: UserSkillCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -6206,8 +6206,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     bio?: string | null
-    userSkills?: UserSkillUncheckedCreateNestedManyWithoutUserInput
     availabilities?: UserAvailabilityUncheckedCreateNestedManyWithoutUserInput
+    userSkills?: UserSkillUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -6217,8 +6217,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bio?: NullableStringFieldUpdateOperationsInput | string | null
-    userSkills?: UserSkillUpdateManyWithoutUserNestedInput
     availabilities?: UserAvailabilityUpdateManyWithoutUserNestedInput
+    userSkills?: UserSkillUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -6229,8 +6229,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bio?: NullableStringFieldUpdateOperationsInput | string | null
-    userSkills?: UserSkillUncheckedUpdateManyWithoutUserNestedInput
     availabilities?: UserAvailabilityUncheckedUpdateManyWithoutUserNestedInput
+    userSkills?: UserSkillUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -6311,8 +6311,8 @@ export namespace Prisma {
     description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    user: UserCreateNestedOneWithoutUserSkillsInput
     skill: SkillCreateNestedOneWithoutUserSkillsInput
+    user: UserCreateNestedOneWithoutUserSkillsInput
   }
 
   export type UserSkillUncheckedCreateInput = {
@@ -6332,8 +6332,8 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutUserSkillsNestedInput
     skill?: SkillUpdateOneRequiredWithoutUserSkillsNestedInput
+    user?: UserUpdateOneRequiredWithoutUserSkillsNestedInput
   }
 
   export type UserSkillUncheckedUpdateInput = {
@@ -6495,16 +6495,16 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
-  export type UserSkillListRelationFilter = {
-    every?: UserSkillWhereInput
-    some?: UserSkillWhereInput
-    none?: UserSkillWhereInput
-  }
-
   export type UserAvailabilityListRelationFilter = {
     every?: UserAvailabilityWhereInput
     some?: UserAvailabilityWhereInput
     none?: UserAvailabilityWhereInput
+  }
+
+  export type UserSkillListRelationFilter = {
+    every?: UserSkillWhereInput
+    some?: UserSkillWhereInput
+    none?: UserSkillWhereInput
   }
 
   export type SortOrderInput = {
@@ -6512,11 +6512,11 @@ export namespace Prisma {
     nulls?: NullsOrder
   }
 
-  export type UserSkillOrderByRelationAggregateInput = {
+  export type UserAvailabilityOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
-  export type UserAvailabilityOrderByRelationAggregateInput = {
+  export type UserSkillOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -6664,14 +6664,14 @@ export namespace Prisma {
     not?: NestedEnumSkillProficiencyNullableFilter<$PrismaModel> | $Enums.SkillProficiency | null
   }
 
-  export type UserScalarRelationFilter = {
-    is?: UserWhereInput
-    isNot?: UserWhereInput
-  }
-
   export type SkillScalarRelationFilter = {
     is?: SkillWhereInput
     isNot?: SkillWhereInput
+  }
+
+  export type UserScalarRelationFilter = {
+    is?: UserWhereInput
+    isNot?: UserWhereInput
   }
 
   export type UserSkillUserIdSkillIdTypeCompoundUniqueInput = {
@@ -6785,13 +6785,6 @@ export namespace Prisma {
     userId?: SortOrder
   }
 
-  export type UserSkillCreateNestedManyWithoutUserInput = {
-    create?: XOR<UserSkillCreateWithoutUserInput, UserSkillUncheckedCreateWithoutUserInput> | UserSkillCreateWithoutUserInput[] | UserSkillUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: UserSkillCreateOrConnectWithoutUserInput | UserSkillCreateOrConnectWithoutUserInput[]
-    createMany?: UserSkillCreateManyUserInputEnvelope
-    connect?: UserSkillWhereUniqueInput | UserSkillWhereUniqueInput[]
-  }
-
   export type UserAvailabilityCreateNestedManyWithoutUserInput = {
     create?: XOR<UserAvailabilityCreateWithoutUserInput, UserAvailabilityUncheckedCreateWithoutUserInput> | UserAvailabilityCreateWithoutUserInput[] | UserAvailabilityUncheckedCreateWithoutUserInput[]
     connectOrCreate?: UserAvailabilityCreateOrConnectWithoutUserInput | UserAvailabilityCreateOrConnectWithoutUserInput[]
@@ -6799,7 +6792,7 @@ export namespace Prisma {
     connect?: UserAvailabilityWhereUniqueInput | UserAvailabilityWhereUniqueInput[]
   }
 
-  export type UserSkillUncheckedCreateNestedManyWithoutUserInput = {
+  export type UserSkillCreateNestedManyWithoutUserInput = {
     create?: XOR<UserSkillCreateWithoutUserInput, UserSkillUncheckedCreateWithoutUserInput> | UserSkillCreateWithoutUserInput[] | UserSkillUncheckedCreateWithoutUserInput[]
     connectOrCreate?: UserSkillCreateOrConnectWithoutUserInput | UserSkillCreateOrConnectWithoutUserInput[]
     createMany?: UserSkillCreateManyUserInputEnvelope
@@ -6813,6 +6806,13 @@ export namespace Prisma {
     connect?: UserAvailabilityWhereUniqueInput | UserAvailabilityWhereUniqueInput[]
   }
 
+  export type UserSkillUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<UserSkillCreateWithoutUserInput, UserSkillUncheckedCreateWithoutUserInput> | UserSkillCreateWithoutUserInput[] | UserSkillUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserSkillCreateOrConnectWithoutUserInput | UserSkillCreateOrConnectWithoutUserInput[]
+    createMany?: UserSkillCreateManyUserInputEnvelope
+    connect?: UserSkillWhereUniqueInput | UserSkillWhereUniqueInput[]
+  }
+
   export type NullableStringFieldUpdateOperationsInput = {
     set?: string | null
   }
@@ -6823,20 +6823,6 @@ export namespace Prisma {
 
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
-  }
-
-  export type UserSkillUpdateManyWithoutUserNestedInput = {
-    create?: XOR<UserSkillCreateWithoutUserInput, UserSkillUncheckedCreateWithoutUserInput> | UserSkillCreateWithoutUserInput[] | UserSkillUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: UserSkillCreateOrConnectWithoutUserInput | UserSkillCreateOrConnectWithoutUserInput[]
-    upsert?: UserSkillUpsertWithWhereUniqueWithoutUserInput | UserSkillUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: UserSkillCreateManyUserInputEnvelope
-    set?: UserSkillWhereUniqueInput | UserSkillWhereUniqueInput[]
-    disconnect?: UserSkillWhereUniqueInput | UserSkillWhereUniqueInput[]
-    delete?: UserSkillWhereUniqueInput | UserSkillWhereUniqueInput[]
-    connect?: UserSkillWhereUniqueInput | UserSkillWhereUniqueInput[]
-    update?: UserSkillUpdateWithWhereUniqueWithoutUserInput | UserSkillUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: UserSkillUpdateManyWithWhereWithoutUserInput | UserSkillUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: UserSkillScalarWhereInput | UserSkillScalarWhereInput[]
   }
 
   export type UserAvailabilityUpdateManyWithoutUserNestedInput = {
@@ -6853,15 +6839,7 @@ export namespace Prisma {
     deleteMany?: UserAvailabilityScalarWhereInput | UserAvailabilityScalarWhereInput[]
   }
 
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
-  }
-
-  export type UserSkillUncheckedUpdateManyWithoutUserNestedInput = {
+  export type UserSkillUpdateManyWithoutUserNestedInput = {
     create?: XOR<UserSkillCreateWithoutUserInput, UserSkillUncheckedCreateWithoutUserInput> | UserSkillCreateWithoutUserInput[] | UserSkillUncheckedCreateWithoutUserInput[]
     connectOrCreate?: UserSkillCreateOrConnectWithoutUserInput | UserSkillCreateOrConnectWithoutUserInput[]
     upsert?: UserSkillUpsertWithWhereUniqueWithoutUserInput | UserSkillUpsertWithWhereUniqueWithoutUserInput[]
@@ -6873,6 +6851,14 @@ export namespace Prisma {
     update?: UserSkillUpdateWithWhereUniqueWithoutUserInput | UserSkillUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: UserSkillUpdateManyWithWhereWithoutUserInput | UserSkillUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: UserSkillScalarWhereInput | UserSkillScalarWhereInput[]
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type UserAvailabilityUncheckedUpdateManyWithoutUserNestedInput = {
@@ -6887,6 +6873,20 @@ export namespace Prisma {
     update?: UserAvailabilityUpdateWithWhereUniqueWithoutUserInput | UserAvailabilityUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: UserAvailabilityUpdateManyWithWhereWithoutUserInput | UserAvailabilityUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: UserAvailabilityScalarWhereInput | UserAvailabilityScalarWhereInput[]
+  }
+
+  export type UserSkillUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<UserSkillCreateWithoutUserInput, UserSkillUncheckedCreateWithoutUserInput> | UserSkillCreateWithoutUserInput[] | UserSkillUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserSkillCreateOrConnectWithoutUserInput | UserSkillCreateOrConnectWithoutUserInput[]
+    upsert?: UserSkillUpsertWithWhereUniqueWithoutUserInput | UserSkillUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: UserSkillCreateManyUserInputEnvelope
+    set?: UserSkillWhereUniqueInput | UserSkillWhereUniqueInput[]
+    disconnect?: UserSkillWhereUniqueInput | UserSkillWhereUniqueInput[]
+    delete?: UserSkillWhereUniqueInput | UserSkillWhereUniqueInput[]
+    connect?: UserSkillWhereUniqueInput | UserSkillWhereUniqueInput[]
+    update?: UserSkillUpdateWithWhereUniqueWithoutUserInput | UserSkillUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: UserSkillUpdateManyWithWhereWithoutUserInput | UserSkillUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: UserSkillScalarWhereInput | UserSkillScalarWhereInput[]
   }
 
   export type UserSkillCreateNestedManyWithoutSkillInput = {
@@ -6931,16 +6931,16 @@ export namespace Prisma {
     deleteMany?: UserSkillScalarWhereInput | UserSkillScalarWhereInput[]
   }
 
-  export type UserCreateNestedOneWithoutUserSkillsInput = {
-    create?: XOR<UserCreateWithoutUserSkillsInput, UserUncheckedCreateWithoutUserSkillsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutUserSkillsInput
-    connect?: UserWhereUniqueInput
-  }
-
   export type SkillCreateNestedOneWithoutUserSkillsInput = {
     create?: XOR<SkillCreateWithoutUserSkillsInput, SkillUncheckedCreateWithoutUserSkillsInput>
     connectOrCreate?: SkillCreateOrConnectWithoutUserSkillsInput
     connect?: SkillWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutUserSkillsInput = {
+    create?: XOR<UserCreateWithoutUserSkillsInput, UserUncheckedCreateWithoutUserSkillsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutUserSkillsInput
+    connect?: UserWhereUniqueInput
   }
 
   export type EnumSkillTypeFieldUpdateOperationsInput = {
@@ -6951,20 +6951,20 @@ export namespace Prisma {
     set?: $Enums.SkillProficiency | null
   }
 
-  export type UserUpdateOneRequiredWithoutUserSkillsNestedInput = {
-    create?: XOR<UserCreateWithoutUserSkillsInput, UserUncheckedCreateWithoutUserSkillsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutUserSkillsInput
-    upsert?: UserUpsertWithoutUserSkillsInput
-    connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutUserSkillsInput, UserUpdateWithoutUserSkillsInput>, UserUncheckedUpdateWithoutUserSkillsInput>
-  }
-
   export type SkillUpdateOneRequiredWithoutUserSkillsNestedInput = {
     create?: XOR<SkillCreateWithoutUserSkillsInput, SkillUncheckedCreateWithoutUserSkillsInput>
     connectOrCreate?: SkillCreateOrConnectWithoutUserSkillsInput
     upsert?: SkillUpsertWithoutUserSkillsInput
     connect?: SkillWhereUniqueInput
     update?: XOR<XOR<SkillUpdateToOneWithWhereWithoutUserSkillsInput, SkillUpdateWithoutUserSkillsInput>, SkillUncheckedUpdateWithoutUserSkillsInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutUserSkillsNestedInput = {
+    create?: XOR<UserCreateWithoutUserSkillsInput, UserUncheckedCreateWithoutUserSkillsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutUserSkillsInput
+    upsert?: UserUpsertWithoutUserSkillsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutUserSkillsInput, UserUpdateWithoutUserSkillsInput>, UserUncheckedUpdateWithoutUserSkillsInput>
   }
 
   export type UserCreateNestedOneWithoutAvailabilitiesInput = {
@@ -7151,6 +7151,33 @@ export namespace Prisma {
     _max?: NestedEnumSkillProficiencyNullableFilter<$PrismaModel>
   }
 
+  export type UserAvailabilityCreateWithoutUserInput = {
+    dayOfWeek?: string | null
+    timeOfDay?: string | null
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserAvailabilityUncheckedCreateWithoutUserInput = {
+    id?: number
+    dayOfWeek?: string | null
+    timeOfDay?: string | null
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserAvailabilityCreateOrConnectWithoutUserInput = {
+    where: UserAvailabilityWhereUniqueInput
+    create: XOR<UserAvailabilityCreateWithoutUserInput, UserAvailabilityUncheckedCreateWithoutUserInput>
+  }
+
+  export type UserAvailabilityCreateManyUserInputEnvelope = {
+    data: UserAvailabilityCreateManyUserInput | UserAvailabilityCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserSkillCreateWithoutUserInput = {
     type: $Enums.SkillType
     proficiency?: $Enums.SkillProficiency | null
@@ -7180,31 +7207,33 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type UserAvailabilityCreateWithoutUserInput = {
-    dayOfWeek?: string | null
-    timeOfDay?: string | null
-    notes?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type UserAvailabilityUncheckedCreateWithoutUserInput = {
-    id?: number
-    dayOfWeek?: string | null
-    timeOfDay?: string | null
-    notes?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type UserAvailabilityCreateOrConnectWithoutUserInput = {
+  export type UserAvailabilityUpsertWithWhereUniqueWithoutUserInput = {
     where: UserAvailabilityWhereUniqueInput
+    update: XOR<UserAvailabilityUpdateWithoutUserInput, UserAvailabilityUncheckedUpdateWithoutUserInput>
     create: XOR<UserAvailabilityCreateWithoutUserInput, UserAvailabilityUncheckedCreateWithoutUserInput>
   }
 
-  export type UserAvailabilityCreateManyUserInputEnvelope = {
-    data: UserAvailabilityCreateManyUserInput | UserAvailabilityCreateManyUserInput[]
-    skipDuplicates?: boolean
+  export type UserAvailabilityUpdateWithWhereUniqueWithoutUserInput = {
+    where: UserAvailabilityWhereUniqueInput
+    data: XOR<UserAvailabilityUpdateWithoutUserInput, UserAvailabilityUncheckedUpdateWithoutUserInput>
+  }
+
+  export type UserAvailabilityUpdateManyWithWhereWithoutUserInput = {
+    where: UserAvailabilityScalarWhereInput
+    data: XOR<UserAvailabilityUpdateManyMutationInput, UserAvailabilityUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type UserAvailabilityScalarWhereInput = {
+    AND?: UserAvailabilityScalarWhereInput | UserAvailabilityScalarWhereInput[]
+    OR?: UserAvailabilityScalarWhereInput[]
+    NOT?: UserAvailabilityScalarWhereInput | UserAvailabilityScalarWhereInput[]
+    id?: IntFilter<"UserAvailability"> | number
+    userId?: IntFilter<"UserAvailability"> | number
+    dayOfWeek?: StringNullableFilter<"UserAvailability"> | string | null
+    timeOfDay?: StringNullableFilter<"UserAvailability"> | string | null
+    notes?: StringNullableFilter<"UserAvailability"> | string | null
+    createdAt?: DateTimeFilter<"UserAvailability"> | Date | string
+    updatedAt?: DateTimeFilter<"UserAvailability"> | Date | string
   }
 
   export type UserSkillUpsertWithWhereUniqueWithoutUserInput = {
@@ -7235,35 +7264,6 @@ export namespace Prisma {
     description?: StringNullableFilter<"UserSkill"> | string | null
     createdAt?: DateTimeFilter<"UserSkill"> | Date | string
     updatedAt?: DateTimeFilter<"UserSkill"> | Date | string
-  }
-
-  export type UserAvailabilityUpsertWithWhereUniqueWithoutUserInput = {
-    where: UserAvailabilityWhereUniqueInput
-    update: XOR<UserAvailabilityUpdateWithoutUserInput, UserAvailabilityUncheckedUpdateWithoutUserInput>
-    create: XOR<UserAvailabilityCreateWithoutUserInput, UserAvailabilityUncheckedCreateWithoutUserInput>
-  }
-
-  export type UserAvailabilityUpdateWithWhereUniqueWithoutUserInput = {
-    where: UserAvailabilityWhereUniqueInput
-    data: XOR<UserAvailabilityUpdateWithoutUserInput, UserAvailabilityUncheckedUpdateWithoutUserInput>
-  }
-
-  export type UserAvailabilityUpdateManyWithWhereWithoutUserInput = {
-    where: UserAvailabilityScalarWhereInput
-    data: XOR<UserAvailabilityUpdateManyMutationInput, UserAvailabilityUncheckedUpdateManyWithoutUserInput>
-  }
-
-  export type UserAvailabilityScalarWhereInput = {
-    AND?: UserAvailabilityScalarWhereInput | UserAvailabilityScalarWhereInput[]
-    OR?: UserAvailabilityScalarWhereInput[]
-    NOT?: UserAvailabilityScalarWhereInput | UserAvailabilityScalarWhereInput[]
-    id?: IntFilter<"UserAvailability"> | number
-    userId?: IntFilter<"UserAvailability"> | number
-    dayOfWeek?: StringNullableFilter<"UserAvailability"> | string | null
-    timeOfDay?: StringNullableFilter<"UserAvailability"> | string | null
-    notes?: StringNullableFilter<"UserAvailability"> | string | null
-    createdAt?: DateTimeFilter<"UserAvailability"> | Date | string
-    updatedAt?: DateTimeFilter<"UserAvailability"> | Date | string
   }
 
   export type UserSkillCreateWithoutSkillInput = {
@@ -7311,6 +7311,22 @@ export namespace Prisma {
     data: XOR<UserSkillUpdateManyMutationInput, UserSkillUncheckedUpdateManyWithoutSkillInput>
   }
 
+  export type SkillCreateWithoutUserSkillsInput = {
+    name: string
+    description?: string | null
+  }
+
+  export type SkillUncheckedCreateWithoutUserSkillsInput = {
+    id?: number
+    name: string
+    description?: string | null
+  }
+
+  export type SkillCreateOrConnectWithoutUserSkillsInput = {
+    where: SkillWhereUniqueInput
+    create: XOR<SkillCreateWithoutUserSkillsInput, SkillUncheckedCreateWithoutUserSkillsInput>
+  }
+
   export type UserCreateWithoutUserSkillsInput = {
     name?: string | null
     email: string
@@ -7337,20 +7353,26 @@ export namespace Prisma {
     create: XOR<UserCreateWithoutUserSkillsInput, UserUncheckedCreateWithoutUserSkillsInput>
   }
 
-  export type SkillCreateWithoutUserSkillsInput = {
-    name: string
-    description?: string | null
-  }
-
-  export type SkillUncheckedCreateWithoutUserSkillsInput = {
-    id?: number
-    name: string
-    description?: string | null
-  }
-
-  export type SkillCreateOrConnectWithoutUserSkillsInput = {
-    where: SkillWhereUniqueInput
+  export type SkillUpsertWithoutUserSkillsInput = {
+    update: XOR<SkillUpdateWithoutUserSkillsInput, SkillUncheckedUpdateWithoutUserSkillsInput>
     create: XOR<SkillCreateWithoutUserSkillsInput, SkillUncheckedCreateWithoutUserSkillsInput>
+    where?: SkillWhereInput
+  }
+
+  export type SkillUpdateToOneWithWhereWithoutUserSkillsInput = {
+    where?: SkillWhereInput
+    data: XOR<SkillUpdateWithoutUserSkillsInput, SkillUncheckedUpdateWithoutUserSkillsInput>
+  }
+
+  export type SkillUpdateWithoutUserSkillsInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type SkillUncheckedUpdateWithoutUserSkillsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserUpsertWithoutUserSkillsInput = {
@@ -7383,28 +7405,6 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     availabilities?: UserAvailabilityUncheckedUpdateManyWithoutUserNestedInput
-  }
-
-  export type SkillUpsertWithoutUserSkillsInput = {
-    update: XOR<SkillUpdateWithoutUserSkillsInput, SkillUncheckedUpdateWithoutUserSkillsInput>
-    create: XOR<SkillCreateWithoutUserSkillsInput, SkillUncheckedCreateWithoutUserSkillsInput>
-    where?: SkillWhereInput
-  }
-
-  export type SkillUpdateToOneWithWhereWithoutUserSkillsInput = {
-    where?: SkillWhereInput
-    data: XOR<SkillUpdateWithoutUserSkillsInput, SkillUncheckedUpdateWithoutUserSkillsInput>
-  }
-
-  export type SkillUpdateWithoutUserSkillsInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type SkillUncheckedUpdateWithoutUserSkillsInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserCreateWithoutAvailabilitiesInput = {
@@ -7465,6 +7465,15 @@ export namespace Prisma {
     userSkills?: UserSkillUncheckedUpdateManyWithoutUserNestedInput
   }
 
+  export type UserAvailabilityCreateManyUserInput = {
+    id?: number
+    dayOfWeek?: string | null
+    timeOfDay?: string | null
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type UserSkillCreateManyUserInput = {
     id?: number
     skillId: number
@@ -7475,13 +7484,30 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type UserAvailabilityCreateManyUserInput = {
-    id?: number
-    dayOfWeek?: string | null
-    timeOfDay?: string | null
-    notes?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
+  export type UserAvailabilityUpdateWithoutUserInput = {
+    dayOfWeek?: NullableStringFieldUpdateOperationsInput | string | null
+    timeOfDay?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserAvailabilityUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    dayOfWeek?: NullableStringFieldUpdateOperationsInput | string | null
+    timeOfDay?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserAvailabilityUncheckedUpdateManyWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    dayOfWeek?: NullableStringFieldUpdateOperationsInput | string | null
+    timeOfDay?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserSkillUpdateWithoutUserInput = {
@@ -7509,32 +7535,6 @@ export namespace Prisma {
     type?: EnumSkillTypeFieldUpdateOperationsInput | $Enums.SkillType
     proficiency?: NullableEnumSkillProficiencyFieldUpdateOperationsInput | $Enums.SkillProficiency | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type UserAvailabilityUpdateWithoutUserInput = {
-    dayOfWeek?: NullableStringFieldUpdateOperationsInput | string | null
-    timeOfDay?: NullableStringFieldUpdateOperationsInput | string | null
-    notes?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type UserAvailabilityUncheckedUpdateWithoutUserInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    dayOfWeek?: NullableStringFieldUpdateOperationsInput | string | null
-    timeOfDay?: NullableStringFieldUpdateOperationsInput | string | null
-    notes?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type UserAvailabilityUncheckedUpdateManyWithoutUserInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    dayOfWeek?: NullableStringFieldUpdateOperationsInput | string | null
-    timeOfDay?: NullableStringFieldUpdateOperationsInput | string | null
-    notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

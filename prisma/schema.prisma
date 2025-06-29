@@ -5,10 +5,10 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = "postgresql://${env("DB_USERNAME")}:${env("DB_PASSWORD")}@${env("DB_HOST")}:${env("DB_PORT")}/${env("DB_DATABASE")}?schema=public"
+  url      = env("DATABASE_URL")
 }
 
-model User {
+model User {pnp
   id             Int                @id @default(autoincrement())
   name           String?
   email          String             @unique
@@ -16,8 +16,8 @@ model User {
   createdAt      DateTime           @default(now())
   updatedAt      DateTime           @updatedAt
   bio            String?
-  userSkills     UserSkill[]
   availabilities UserAvailability[]
+  userSkills     UserSkill[]
 
   @@map("users")
 }
@@ -31,22 +31,18 @@ model Skill {
   @@map("skills")
 }
 
-// Links a User to a Skill and specifies the skill's type (offered/wanted) and proficiency.
 model UserSkill {
   id          Int               @id @default(autoincrement())
   userId      Int
   skillId     Int
   type        SkillType
   proficiency SkillProficiency?
-  description String?           @db.Text
+  description String?
   createdAt   DateTime          @default(now())
   updatedAt   DateTime          @updatedAt
+  skill       Skill             @relation(fields: [skillId], references: [id])
+  user        User              @relation(fields: [userId], references: [id])
 
-  user  User  @relation(fields: [userId], references: [id])
-  skill Skill @relation(fields: [skillId], references: [id])
-
-  // Ensures a user cannot offer the same skill multiple times, or want the same skill multiple times.
-  // If a user offers React and wants React, these would be two separate entries because of the `type`.
   @@unique([userId, skillId, type])
   @@map("user_skills")
 }
@@ -56,11 +52,10 @@ model UserAvailability {
   userId    Int
   dayOfWeek String?
   timeOfDay String?
-  notes     String?  @db.Text
+  notes     String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
-  User User @relation(fields: [userId], references: [id])
+  User      User     @relation(fields: [userId], references: [id])
 
   @@map("user_availabilities")
 }

@@ -1,1 +1,1 @@
-export * from './authenticatedUser.interface';
+export * from './authenticatedUser.interface'; 
